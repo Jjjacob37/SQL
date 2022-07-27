@@ -1,0 +1,31 @@
+CREATE TABLE jacobseeds (id INTEGER PRIMARY KEY, name TEXT, quantity INTEGER, color TEXT, price_cents INTEGER);
+
+INSERT INTO jacobseeds VALUES (1, "tomatoe", 4, "red", 5);
+INSERT INTO jacobseeds VALUES (2, "cucumber", 5, "green", 8);
+INSERT INTO jacobseeds VALUES (3, "jalapeno", 2, "green", 5);
+INSERT INTO jacobseeds VALUES (4, "cilantro", 6, "green", 3);
+INSERT INTO jacobseeds VALUES (5,"zucchini", 4, "green", 4);
+INSERT INTO jacobseeds VALUES (7,"zucchini", 5, "yellow", 6);
+INSERT INTO jacobseeds VALUES (8,"cherry tomatoe", 4,"red", 5);
+INSERT INTO jacobseeds VALUES (9, "oregano", 3, "green", 2);
+INSERT INTO jacobseeds VALUES (10, "thyme", 2, "green", 8);
+INSERT INTO jacobseeds VALUES (11, "green tomatoe", 6, "green", 3);
+INSERT INTO jacobseeds VALUES ( 12, "serano", 4, "green", 4);
+INSERT INTO jacobseeds VALUES (13, "Cantaloupe", 6, "yellow", 4);
+INSERT INTO jacobseeds VALUES (14, "watermelon", 5, "green", 8);
+INSERT INTO jacobseeds VALUES (15, "basil", 2, "green", 4);
+
+--display the database ordered by price.
+SELECT * from jacobseeds;
+
+--what is the average price of the seeds by cents.
+SELECT * from jacobseeds order by price_cents;
+
+--What is the sum of the seeds from my store
+SELECT SUM(quantity) from jacobseeds
+
+
+
+
+
+
