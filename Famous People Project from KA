@@ -1,0 +1,43 @@
+/* Create table about the people and what they do here */
+
+CREATE TABLE marvel_characters (id INTEGER PRIMARY KEY,
+    /*Name of character*/
+    name TEXT,
+    /*Power type*/
+    Power_set TEXT,
+    /*First Comic book appearance by title*/
+    first_appearance TEXT);
+    
+INSERT INTO marvel_characters (name, Power_set, first_appearance) VALUES ("Tony Stark", "Tech", "Iron man comics");
+INSERT INTO marvel_characters (name , Power_set, first_appearance) VALUES ("Thor Odinson", "Magic", "Thor comics");
+INSERT INTO marvel_characters (name , Power_set, first_appearance) VALUES ("Dr. Stephen Strange", "Magic", "Dr. Strange comics");
+INSERT INTO marvel_characters (name , Power_set, first_appearance) VALUES ("Wanda Maximoff", "Mutant", "X-men comics");
+INSERT INTO marvel_characters (name , Power_set, first_appearance) VALUES ("Wolverine", "Mutant", "X-men comics");
+INSERT INTO marvel_characters (name , Power_set, first_appearance) VALUES ("Black Panther", "Magic", "Fantastic Four comics"); 
+INSERT INTO marvel_characters (name , Power_set, first_appearance) VALUES ("Jean Gray", "Mutant", "X-men comics");
+INSERT INTO marvel_characters (name , Power_set, first_appearance) VALUES ("Spider man", "radioactive", "Amazing Fantasy");
+INSERT INTO marvel_characters (name , Power_set, first_appearance) VALUES ("Vision", "Tech", "Avengers comics");
+INSERT INTO marvel_characters (name , Power_set, first_appearance) VALUES ("Thena", "Celestial", "Eternals comics");
+INSERT INTO marvel_characters (name , Power_set, first_appearance) VALUES ("Victor Von Doom", "Magic", "Fantastic Four comics");
+
+    /*Creating a clean table to visualize*/
+
+SELECT * FROM marvel_characters
+ORDER by first_appearance;
+
+CREATE TABLE mcu_movies (id INTEGER PRIMARY KEY,
+name TEXT,
+characters_involved TEXT,
+year INTEGER);
+
+INSERT INTO mcu_movies (name, characters_involved, year) VALUES ("avengers", "Tony Stark, Thor Odinson, Cap, Hulk", 2012);
+INSERT INTO mcu_movies (name, characters_involved, year) VALUES ( "Iron man 3", "Iron man", 2013);
+INSERT INTO mcu_movies (name, characters_involved, year) VALUES ( "Guardians of the galaxy", "Starlord, Gamora, Groot, Rocket", 2014);
+INSERT INTO mcu_movies (name, characters_involved, year) VALUES ("Avengers AOA", "Iron man, Thor Odinson, Cap, Hulk, Wanda Maximoff, Vision", 2015);
+INSERT INTO mcu_movies (name, characters_involved, year) VALUES ("Thor Ragnarok", "Thor Odinson, Hulk, Dr. Stephen Strange", 2017);
+INSERT INTO mcu_movies (name, characters_involved, year) VALUES ("Dr.Strange ITM", "Dr. Stephen Strange, Professor X, Reed Richards, Wanda", 2022);
+
+SELECT mcu_movies.name, mcu_movies.characters_involved
+FROM mcu_movies
+LEFT OUTER JOIN marvel_characters
+ON mcu_movies.name = marvel_characters.name;
