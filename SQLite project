@@ -1,0 +1,92 @@
+#1. How many orders were placed in January? 
+SELECT COUNT(orderid)
+FROM BIT_DB.JanSales
+
+#2. How many of those orders were for an iPhone? 
+SELECT COUNT(orderid)   <-- selects *all* orders in database using id
+FROM BIT_DB.JanSales 
+WHERE Product='iPhone'  <-- This specifies what i'm searching from from * id's
+
+#3. Select the customer account numbers for all the orders that were placed in February. 
+SELECT acctnum
+FROM BIT_DB.customers cust
+INNER JOIN BIT_DB.FebSales Feb
+ON cust.order_id=FEB.orderid
+
+#4. Which product was the cheapest one sold in January, and what was the price? 
+####### Option #1 ######
+SELECT distinct Product, price
+FROM BIT_DB.JanSales
+WHERE  price in (SELECT min(price) FROM BIT_DB.JanSales)
+
+####### Option #2 ######
+SELECT distinct product, price 
+FROM BIT_DB.JanSales 
+ORDER BY price ASC LIMIT 1
+
+####### Option #3 ######
+SELECT distinct product, MIN(price) 
+FROM BIT_DB.JanSales Jan 
+GROUP BY product, price 
+ORDER BY price ASC LIMIT 1
+
+####### Option #4 ######
+SELECT product, min(price) 
+FROM BIT_DB.JanSales Jan 
+GROUP BY product, price 
+ORDER BY price ASC
+LIMIT 1
+
+#5. What is the total revenue for each product sold in January?
+SELECT sum(quantity)*price as revenue
+,product
+FROM BIT_DB.JanSales
+GROUP BY product
+
+#6. Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?
+select 
+sum(Quantity), 
+product, 
+sum(quantity)*price as revenue
+FROM BIT_DB.FebSales 
+WHERE location = '548 Lincoln St, Seattle, WA 98101'
+GROUP BY product
+
+#7. How many customers ordered more than 2 products at a time, and what was the average amount spent for those customers? 
+select 
+count(cust.acctnum), 
+avg(quantity*price)
+FROM BIT_DB.FebSales Feb
+LEFT JOIN BIT_DB.customers cust
+ON FEB.orderid=cust.order_id
+WHERE Feb.Quantity>2
+
+
+## This is where I'm learning how to find specific dates/times in SQL
+
+SELECT orderid, orderdate
+FROM BIT_DB.FebSales
+WHERE orderdate between '02/13/19 00:00' AND '02/18/19 00:00';
+
+SELECT location
+FROM BIT_DB.FebSales 
+WHERE orderdate = '02/18/19 01:35';
+
+SELECT sum(quantity)
+FROM BIT_DB.FebSales 
+WHERE orderdate like '02/18/19%';
+
+SELECT orderdate from BIT_DB.FebSales;
+
+SELECT distinct Product
+FROM BIT_DB.FebSales
+WHERE Product like '%Batteries%';
+
+SELECT distinct Product, Price
+FROM BIT_DB.FebSales 
+WHERE Price like '%.99';
+
+SELECT product, SUM(quantity)		<-- this is what I want to see in the table
+FROM BIT_DB.FebSales			<-- This is the location of where I'm to find this 
+WHERE location like '%Los Angeles%'	<-- This helps me find the location
+GROUP by Product;			<-- This shows products, Sum of the quantity 
