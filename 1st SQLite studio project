@@ -90,3 +90,50 @@ SELECT product, SUM(quantity)		<-- this is what I want to see in the table
 FROM BIT_DB.FebSales			<-- This is the location of where I'm to find this 
 WHERE location like '%Los Angeles%'	<-- This helps me find the location
 GROUP by Product;			<-- This shows products, Sum of the quantity 
+
+
+
+Which locations in New York received at least 3 orders in January,
+ and how many orders did they each receive? ;
+
+SELECT distinct location, count(orderID) <-- answers to first part
+FROM BIT_DB.JanSales
+WHERE location like '%NY%' <--  finds anything with NY
+GROUP by location <-- gives me answer as locations
+HAVING count(orderID) >2; <--answers second part;
+
+How many of each type of headphone were sold in February?;
+
+SELECT sum(Quantity) as quantity, <-- how to answer the question
+Product
+FROM BIT_DB.FebSales 
+WHERE Product like '%Headphones%'<--- how to find the answer in data
+GROUP BY Product;
+
+What was the average amount spent per account in February?
+
+SELECT avg(quantity*price) <-- to find the avg 
+FROM BIT_DB.FebSales Feb
+
+LEFT JOIN BIT_DB.customers cust <-- to find the act numbers since they're not on the Febsales table
+ON FEB.orderid=cust.order_id <-- What joins the two tables to gather the necessary info
+
+What was the average quantity of products purchased per account in February? 
+
+select sum(quantity)/count(cust.acctnum) <-- to find avg, i need Sum/Count
+FROM BIT_DB.FebSales Feb
+
+LEFT JOIN BIT_DB.customers cust <-- to get the acct numbers
+ON FEB.orderid=cust.order_id <--what joins the two tables;
+
+Which product brought in the most revenue in January and how much revenue did it bring in total?
+
+
+SELECT product,     
+sum(quantity*price) <^--to find the revenue i need to multiply quantity by price
+FROM BIT_DB.JanSales 
+GROUP BY product <--- to find the singular answer as product
+ORDER BY sum(quantity*price) desc <-- to find the answer as price
+LIMIT 1      <-- so i don't get multiple products
+
+
