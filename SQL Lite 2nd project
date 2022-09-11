@@ -1,0 +1,52 @@
+# For this project, I downloaded Spotify data from Kaggle.
+# Then I created a table to insert Spotify data into.
+# Finally, I performed analytics on the data using SQL. 
+
+#Creating the table: 
+CREATE TABLE BIT_DB.Spotifydata (
+id integer PRIMARY KEY,
+artist_name varchar NOT NULL,
+track_name varchar NOT NULL,
+track_id varchar NOT NULL,
+popularity integer NOT NULL,
+danceability decimal(4,3) NOT NULL,
+energy decimal(4,3) NOT NULL,
+key integer NOT NULL,
+loudness decimal(5,3) NOT NULL,
+mode integer NOT NULL,
+speechiness decimal(5,4) NOT NULL,
+acousticness decimal(6,5) NOT NULL,
+instrumentalness text NOT NULL,
+liveness decimal(5,4) NOT NULL,
+valence decimal(4,3) NOT NULL,
+tempo decimal(6,3) NOT NULL,
+duration_ms integer NOT NULL,
+time_signature integer NOT NULL 
+)
+
+#Then I inserted the Spotify Data .csv into the table.
+
+#Next i wanted to find some information about this data
+
+#How many songs in the top 50 are with lil Nas x
+
+SELECT artist_name, track_name     <-- what i want to show as answer
+FROM BIT_DB.Spotifydata
+WHERE artist_name like '%Lil%' <-- how to sort through data to find the answer
+GROUP BY id;
+
+#What are the top 15 songs and how long are the songs apx.?
+
+SELECT track_name, popularity, (duration_ms/60000) time <-- i'm trying to organize the data's popularity with a time in approximate minutes
+FROM BIT_DB.Spotifydata
+ORDER BY popularity; <-- to organize and order by popularity
+
+#What songs are are most popular and top dancability?
+
+SELECT track_name, popularity, danceability <-- i want to find the correlation between dancability and popular songs
+FROM BIT_DB.Spotifydata
+WHERE popularity > 80     <-- finding the top popular songs
+AND danceability  >= 0.800    <-- Finding top dancability
+ORDER by popularity
+LIMIT 10;
+
