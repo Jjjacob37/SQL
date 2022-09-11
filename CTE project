@@ -1,0 +1,19 @@
+#Using previous data, my goal here was to add a temporary table(CTE) 
+in order to use it as a reference to complete a task
+That task is, calculate the average popularity for the artists in the table. 
+Then, for every artist with an average popularity of 90 or above, 
+you need to show their name, their average popularity, 
+and label them as a “Top Star”;
+
+WITH popularity_average_CTE AS (  <-- i created a temporary table and named it
+SELECT s.artist_name,   
+AVG(s.popularity) AS average_popularity <-- i'm selecting what i want to query which is name and the average popularity
+FROM SpotifyData s  <-- i'm making this CTE from this table, and abbreviating it for this query
+GROUP BY s.artist_name <--  Grouping it by artist name 
+)
+ 
+SELECT  artist_name,  <-- i have two columns that are from the CTE and creating another column naming each Top Star
+        average_popularity,
+        'Top Star' AS tag
+FROM popularity_average_CTE   <-- This is where i'm grabbing this query data from
+WHERE average_popularity>=90; <-- how i want to limit my query results
